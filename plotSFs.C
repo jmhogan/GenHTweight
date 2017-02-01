@@ -1,4 +1,4 @@
-void plots(){
+void plotSFs(){
 
   // Expects hadded files from GenHTScaleFactor
   TFile *f100 = TFile::Open("WJets100ext.root");
@@ -65,14 +65,14 @@ void plots(){
 
   // 1/fb arbitrary luminosity
   // weight = lumi*pre-matching xsec / N_LHE_events
-  H100->Scale(1000.0*13071.8193/290044442.0);
-  H200->Scale(1000.0*4223.7111/176970364.0);
-  H400->Scale(1000.0*627.5758/74659159.0);
-  H600->Scale(1000.0*159.1176/206073807.0);
-  H800->Scale(1000.0*73.4656/91933713.0);
-  H1200->Scale(1000.0*17.5895/97857692.0);
+  H100->Scale(1000.0*13072.8173/290044442.0);
+  H200->Scale(1000.0*4223.9214/176970364.0);
+  H400->Scale(1000.0*627.9155/74659159.0);
+  H600->Scale(1000.0*159.1029/206073807.0);
+  H800->Scale(1000.0*73.4766/91933713.0);
+  H1200->Scale(1000.0*17.5912/97857692.0);
   H2500->Scale(1000.0*0.3970/29554520.0);
-  Hinc->Scale(1000.0*135332.8860/1069037433.0);
+  Hinc->Scale(1000.0*135668.9534/1069037433.0);
   
   // Option test for weighted histograms, divide by N files
   // guessing that 1 LHE file = 1 madgraph run? Doesn't 
