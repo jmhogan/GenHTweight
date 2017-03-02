@@ -1,4 +1,17 @@
 
+// Pre-matching cross sections / N events in sample
+
+HT 100 - 200:   13072.8173  /  290044442.0
+HT 200 - 400:   4223.9214  /  176970364.0
+HT 400 - 600:   627.9155  /  74659159.0
+HT 600 - 800:   159.1029  /  206073807.0
+HT 800 - 1200:  73.4766  /  91933713.0
+HT 1200 - 2500: 17.5912  /  97857692.0
+HT 2500 - Inf:  0.3970  /  29554520.0
+Inclusive:      135668.9534  /  1069037433.0
+
+// Binned Scale Factors
+
 Ratio Inclusive/Binned
 HT 0 - 100:     0.000000 +/- 0.000000
 HT 100 - 200:   0.998056 +/- 0.000115
@@ -8,3 +21,32 @@ HT 600 - 800:   0.856705 +/- 0.000829
 HT 800 - 1200:  0.757463 +/- 0.001147
 HT 1200 - 2500: 0.608292 +/- 0.002096
 HT 2500 - Inf:  0.454246 +/- 0.012050
+
+
+// Fitted functions
+// Pol5 + pol0, or exponential with 2 powers
+
+   expfactor = exp(3.24137e-05*genht - 7.66658e-07*genht*genht);
+
+   sf = 4.92375e-01 + 5.10960e-01*expfactor;
+   sferr2 = 2.34052e-05 + expfactor*( 2.54011e-05 + 2*(-2.43172e-05)
+   					+ 2*genht*5.10960e-01*(1.82905e-08 + -2.08643e-08*expfactor)
+   					+ 5.10960e-01*genht*genht*(4.24648e-11*expfactor + 2*(-6.75889e-11) + 2*7.24833e-11*expfactor)
+   					+ 2*pow(genht,3)*pow(5.10960e-01,2)*expfactor*(-8.95532e-14)
+   					+ 2.50216e-16*pow(genht,4)*pow(5.10960e-01,2)*expfactor
+   					);
+
+   HTSF_Exp = sf;
+   HTSF_ExpUp = sf + sqrt(sferr2);
+   HTSF_ExpDn = sf - sqrt(sferr2);
+
+   sf = 1 + 6.70626e-05*genht - 6.21153e-07*pow(genht,2) + 3.72461e-10*pow(genht,3) - 8.2689e-14*pow(genht,4) + 6.2432e-18*pow(genht,5);
+   sferr2 = 1.78273e-12*pow(genht,2) + 2*(-7.88193e-15)*pow(genht,3) + (4.12238e-17 + 2*8.86842e-18)*pow(genht,4)
+     + 2*(-3.40086e-21 - 5.01348e-20)*pow(genht,5) + (6.57332e-23 + 2*4.04392e-25 + 2*2.00655e-23)*pow(genht,6)
+     + 2*(-2.44857e-27 - 2.76526e-26)*pow(genht,7) + (1.21404e-29 + 2*3.48635e-30)*pow(genht,8) 
+     + 2*(-1.57966e-33)*pow(genht,9) + 2.11149e-37*pow(genht,10);
+
+   // Piece-wise splice with a flat line.
+   HTSF_Pol = max(0.402806, sf);
+   HTSF_PolUp = max(0.402806+0.0209982, sf+sqrt(sferr2));
+   HTSF_PolDn = max(0.402806-0.0209982, sf-sqrt(sferr2));
