@@ -30,6 +30,11 @@ HT 2500 - Inf:  0.454246 +/- 0.012050
 // with upper/lower error bar fits
 /////////////////////////////////////////////////////////////////////////
 
+Function of "genHT". Two ways to get it:
+1. sum(pt) over all status 1 quarks/gluons from the externalLHEproducer
+2. sum(pt) over all status 22/23 quarks/gluons (not the W) from prunedGenParticles.
+   Their mothers should be the outgoing particles which have status 21.
+
 ************* CENTRAL FIT ***********
 Minimizer is Linear
 Chi2                      =      521.407
